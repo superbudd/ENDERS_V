@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3jrshwdxj3il"]
+
+[ext_resource type="Texture2D" uid="uid://bjhskpv5y24ua" path="res://textures/enders vault player.png" id="1_3rom7"]
+[ext_resource type="ArrayMesh" uid="uid://b160jupjyawa6" path="res://object/test2.obj" id="2_y0ht1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4emx"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_3rom7")
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_73xjf"]
+
+[node name="newplayer" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_q4emx")
+mesh = ExtResource("2_y0ht1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_73xjf")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85524, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://3u3e83or7rw2"]
+
+[ext_resource type="Texture2D" uid="uid://4mndocrnlg7m" path="res://textures/blocktextures/autumn.png" id="1_ih0el"]
+
+[resource]
+albedo_texture = ExtResource("1_ih0el")
+texture_filter = 0
+disable_receive_shadows = true

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c1v1yyv8pxu7q"]
+
+[ext_resource type="Texture2D" uid="uid://dl77df6isvikr" path="res://textures/blocktextures/cobbled_stone.png" id="1_y0ebn"]
+
+[resource]
+albedo_texture = ExtResource("1_y0ebn")
+texture_filter = 0
+disable_receive_shadows = true

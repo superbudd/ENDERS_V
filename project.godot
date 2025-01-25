@@ -10,6 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Endervault"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/name="Enders_Vault"
+run/main_scene="res://scenes/the_world.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

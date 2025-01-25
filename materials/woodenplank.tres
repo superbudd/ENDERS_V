@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://mflwc4clinm"]
+
+[ext_resource type="Texture2D" uid="uid://bsahypfbiy1ot" path="res://textures/blocktextures/wood_planks.png" id="1_evopj"]
+
+[resource]
+albedo_texture = ExtResource("1_evopj")
+texture_filter = 0
+disable_receive_shadows = true

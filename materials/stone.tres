@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dd8ynn5ta0wek"]
+
+[ext_resource type="Texture2D" uid="uid://h8ak3f5xx8ge" path="res://textures/blocktextures/stone.png" id="1_p66ml"]
+
+[resource]
+albedo_texture = ExtResource("1_p66ml")
+texture_filter = 0
+disable_receive_shadows = true
