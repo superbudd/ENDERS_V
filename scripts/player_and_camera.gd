@@ -15,17 +15,34 @@ const SPRINT_MULTIPLIER = 1.5  # Speed multiplier when sprinting
 @export_range(0.0, 5.0) var air_acceleration: float = 0.5
 @export_range(5.0, 50.0) var gravity: float = 15.0  # Increased gravity for faster falling
 
-
 var mouse_motion: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var bob_timer: float = 0.0  # Timer to track bobbing
 
 @onready var camera_pivot: Node3D = $CameraPivot
-@onready var camera: Camera3D = $CameraPivot.get_node_or_null("Camera")  # Use get_node_or_null for safety
+@onready var spring_arm: SpringArm3D = $CameraPivot/SpringArm3D
+@onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera
+
+var pivot_start_position: Vector3
+var pivot_start_rotation: Vector3
 
 func _ready():
 	if not camera:
-		push_error("Camera node not found under CameraPivot! Check your scene structure.")
+		push_error("Camera node not found under CameraPivot/SpringArm3D! Check your scene structure.")
+	if not spring_arm:
+		push_error("SpringArm3D node not found under CameraPivot! Add a SpringArm3D node.")
+	
+	# Store the initial pivot position and rotation
+	pivot_start_position = camera_pivot.position
+	pivot_start_rotation = camera_pivot.rotation
+
+	# Set initial position of the spring arm and camera
+	spring_arm.position = Vector3.ZERO
+	spring_arm.rotation = Vector3.ZERO
+	spring_arm.spring_length = 3.0  # Adjust this length to set the default distance of the camera from the player
+
+	# Ensure the camera aligns correctly
+	camera_pivot.position = Vector3(0, 1.5, 0)  # Adjust this to match the player's head height
 
 func _physics_process(delta):
 	# Apply gravity
@@ -67,7 +84,7 @@ func _physics_process(delta):
 	# Handle camera and mouse movement
 	_handle_mouse_look(delta)
 
-	# Handle camera bopping
+	# Handle camera bobbing
 	_handle_camera_bob(delta, direction)
 
 func _handle_mouse_look(_delta):
@@ -88,15 +105,14 @@ func _handle_camera_bob(delta, direction):
 		bob_timer += delta * BOB_FREQUENCY
 		var bob_offset = sin(bob_timer) * BOB_AMPLITUDE
 		if camera_pivot:
-			camera_pivot.position.y = bob_offset
+			camera_pivot.position = pivot_start_position + Vector3(0, bob_offset, 0)
 	else:
 		# Reset bobbing instantly when not moving
 		bob_timer = 0.0
 		if camera_pivot:
-			camera_pivot.position.y = 0.0
+			camera_pivot.position = pivot_start_position
 
 func _input(event: InputEvent):
 	# Store mouse motion for camera rotation
 	if event is InputEventMouseMotion:
 		mouse_motion = event.relative
-		
